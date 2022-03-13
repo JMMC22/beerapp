@@ -40,9 +40,14 @@ class GroupDetailsPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CustomButton(),
-                      SizedBox(height: 15),
-                      CustomButton(),
+                      CustomButton(title: 'Ronda para todos', onPressed: () {}),
+                      const Divider(height: 10),
+                      const CustomButton(
+                          title: 'Selección específica', onPressed: null),
+                      const Divider(height: 10),
+                      const CustomButton(
+                          title: 'Cambiar precio predeterminado',
+                          onPressed: null),
                     ],
                   ),
                 );
@@ -54,7 +59,14 @@ class GroupDetailsPage extends StatelessWidget {
 }
 
 class CustomButton extends StatefulWidget {
-  CustomButton({Key? key}) : super(key: key);
+  final String title;
+  final VoidCallback? onPressed;
+
+  const CustomButton({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -65,13 +77,16 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(Size.fromHeight(50)),
-        backgroundColor: MaterialStateProperty.all(
-          AppCustomTheme.colors.bottomNavLightYellow,
-        ),
+        minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return AppCustomTheme.colors.lightGrey;
+          }
+          return AppCustomTheme.colors.bottomNavDarkYellow;
+        }),
       ),
       child: Text(
-        'Action 1',
+        widget.title,
         style: TextStyle(
           fontSize: 18,
           fontFamily: 'Montserrat',
@@ -79,7 +94,7 @@ class _CustomButtonState extends State<CustomButton> {
           color: AppCustomTheme.colors.black,
         ),
       ),
-      onPressed: () {},
+      onPressed: widget.onPressed,
     );
   }
 }

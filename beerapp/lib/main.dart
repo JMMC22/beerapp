@@ -1,5 +1,6 @@
 import 'package:beerapp/src/presentation/navigation/cubit/cubit/navigation_cubit.dart';
 import 'package:beerapp/src/presentation/root_page.dart';
+import 'package:beerapp/src/routes/router_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
     return BlocProvider<NavigationCubit>(
       create: (context) => NavigationCubit(),
       child: const MaterialApp(
-        home: RootPage(),
+        initialRoute: '/',
+        onGenerateRoute: RouterGenerator.generateRoute,
       ),
     );
   }

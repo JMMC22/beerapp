@@ -1,3 +1,4 @@
+import 'package:beerapp/src/presentation/home/widgets/header_home.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -5,9 +6,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
-        child: Text('HOME'),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: const [
+            HeaderHome(),
+          ],
+        ),
       ),
     );
   }

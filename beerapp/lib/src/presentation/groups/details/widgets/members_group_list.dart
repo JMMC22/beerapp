@@ -70,7 +70,7 @@ class GroupItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed('/group'),
+      onTap: null, //() => Navigator.of(context).pushNamed('/group'),
       child: Container(
         height: 88,
         decoration: BoxDecoration(

@@ -20,16 +20,16 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppCustomTheme.colors.backgroundGrey,
-        bottomNavigationBar: CustomBottomNavigationBar(),
+        bottomNavigationBar: const CustomBottomNavigationBar(),
         body: BlocBuilder<NavigationCubit, NavigationState>(
           builder: (context, state) {
             switch (state.navBarItem) {
               case NavBarItem.home:
-                return HomePage();
+                return const HomePage();
               case NavBarItem.stadistics:
-                return StadisticsPage();
+                return const StadisticsPage();
               case NavBarItem.profile:
-                return ProfilePage();
+                return const ProfilePage();
             }
           },
         ));

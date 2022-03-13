@@ -9,6 +9,15 @@ class GroupDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'Bar',
+          style: TextStyle(
+            fontSize: 24,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w700,
+            color: AppCustomTheme.colors.black,
+          ),
+        ),
         backgroundColor: AppCustomTheme.colors.backgroundGrey,
         leading: IconButton(
           iconSize: 30,

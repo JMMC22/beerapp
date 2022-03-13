@@ -1,3 +1,5 @@
+import 'package:beerapp/src/presentation/groups/details/widgets/balance_group.dart';
+import 'package:beerapp/src/presentation/groups/details/widgets/members_group_list.dart';
 import 'package:flutter/material.dart';
 
 class GroupDetailsBody extends StatelessWidget {
@@ -5,8 +7,15 @@ class GroupDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Grupo'),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: 290),
+          BalanceGroup(),
+          const SizedBox(height: 30),
+          MembersGroupList(),
+        ],
+      ),
     );
   }
 }

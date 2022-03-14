@@ -1,3 +1,4 @@
+import 'package:beerapp/src/presentation/stadistics/view/stadistics_body.dart';
 import 'package:flutter/material.dart';
 
 class StadisticsPage extends StatelessWidget {
@@ -5,10 +6,6 @@ class StadisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Center(
-        child: Text('Stadistics'),
-      ),
-    );
+    return const SafeArea(child: StadisticsBody());
   }
 }

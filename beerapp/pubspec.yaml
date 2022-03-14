@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.0.0
   equatable: ^2.0.0
+  fl_chart: ^0.46.0
 
 
 dev_dependencies:

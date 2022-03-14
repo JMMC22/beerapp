@@ -21,14 +21,23 @@ class MembersGroupList extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Miembros',
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w700,
-                color: AppCustomTheme.colors.black,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  'Miembros',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    color: AppCustomTheme.colors.black,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  iconSize: 25,
+                  icon: const Icon(Icons.add_rounded),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 15),

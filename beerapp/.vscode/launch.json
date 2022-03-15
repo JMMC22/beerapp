@@ -1,0 +1,24 @@
+{
+    "configurations": [
+      {
+        "name": "Flutter DEV",
+        "request": "launch",
+        "type": "dart",
+        "program": "lib/main.dart",
+        "args": [
+          "--flavor",
+          "dev"
+        ]
+      },
+      {
+        "name": "Flutter PRO",
+        "request": "launch",
+        "type": "dart",
+        "program": "lib/main.dart",
+        "args": [
+          "--flavor",
+          "pro"
+        ]
+      }
+    ]
+  }

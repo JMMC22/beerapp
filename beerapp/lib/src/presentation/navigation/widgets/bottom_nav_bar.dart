@@ -23,10 +23,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         showUnselectedLabels: false,
         iconSize: 35,
         selectedItemColor: state.index == 0
-            ? AppCustomTheme.colors.bottomNavLightBlue
+            ? AppCustomTheme.colors.blue
             : state.index == 1
-                ? AppCustomTheme.colors.bottomNavLightYellow
-                : AppCustomTheme.colors.bottomNavLightRed,
+                ? AppCustomTheme.colors.yellow
+                : AppCustomTheme.colors.red,
         items: const [
           BottomNavigationBarItem(
             label: 'Home',

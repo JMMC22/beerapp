@@ -2,6 +2,8 @@ import 'package:beerapp/src/presentation/groups/details/view/group_details_body.
 import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
+import '../../../commons/commons_widgets.dart';
+
 class GroupDetailsPage extends StatelessWidget {
   const GroupDetailsPage({Key? key}) : super(key: key);
 
@@ -54,47 +56,6 @@ class GroupDetailsPage extends StatelessWidget {
               });
         },
       ),
-    );
-  }
-}
-
-class CustomButton extends StatefulWidget {
-  final String title;
-  final VoidCallback? onPressed;
-
-  const CustomButton({
-    Key? key,
-    required this.title,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  State<CustomButton> createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton> {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(const Size.fromHeight(50)),
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppCustomTheme.colors.lightGrey;
-          }
-          return AppCustomTheme.colors.bottomNavDarkYellow;
-        }),
-      ),
-      child: Text(
-        widget.title,
-        style: TextStyle(
-          fontSize: 18,
-          fontFamily: 'Montserrat',
-          fontWeight: FontWeight.w600,
-          color: AppCustomTheme.colors.black,
-        ),
-      ),
-      onPressed: widget.onPressed,
     );
   }
 }

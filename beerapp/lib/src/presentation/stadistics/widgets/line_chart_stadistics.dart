@@ -118,10 +118,7 @@ class _LineChartStadisticsState extends State<LineChartStadistics> {
             FlSpot(11, 4),
           ],
           isCurved: true,
-          colors: [
-            AppCustomTheme.colors.bottomNavLightYellow,
-            AppCustomTheme.colors.bottomNavDarkYellow
-          ],
+          colors: [AppCustomTheme.colors.yellow, AppCustomTheme.colors.yellow],
           barWidth: 3,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -129,10 +126,9 @@ class _LineChartStadisticsState extends State<LineChartStadistics> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors: [
-              AppCustomTheme.colors.bottomNavLightYellow,
-              AppCustomTheme.colors.bottomNavDarkYellow
-            ].map((color) => color.withOpacity(0.3)).toList(),
+            colors: [AppCustomTheme.colors.yellow, AppCustomTheme.colors.yellow]
+                .map((color) => color.withOpacity(0.3))
+                .toList(),
           ),
         ),
       ],

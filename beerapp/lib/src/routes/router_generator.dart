@@ -1,6 +1,7 @@
 import 'package:beerapp/src/presentation/groups/details/view/group_details_page.dart';
 import 'package:beerapp/src/presentation/home/view/home_page.dart';
 import 'package:beerapp/src/presentation/profile/view/profile_page.dart';
+import 'package:beerapp/src/presentation/register/view/register_page.dart';
 import 'package:beerapp/src/presentation/root_page.dart';
 import 'package:beerapp/src/presentation/stadistics/view/stadistics_page.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class RouterGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (context) => const RootPage());
+      case '/register':
+        return MaterialPageRoute(builder: (context) => const RegisterPage());
       case '/home':
         return MaterialPageRoute(builder: (context) => const HomePage());
       case '/stadistics':

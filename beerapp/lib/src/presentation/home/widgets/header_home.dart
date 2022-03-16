@@ -1,3 +1,4 @@
+import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class HeaderHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '¡Hi, illojuan!',
+            '¡Hi, nombre!',
             style: TextStyle(
               fontSize: 30,
               fontFamily: 'Montserrat',

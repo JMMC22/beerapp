@@ -3,7 +3,8 @@ import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 class HeaderHome extends StatelessWidget {
-  const HeaderHome({Key? key}) : super(key: key);
+  final String username;
+  const HeaderHome({Key? key, required this.username}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class HeaderHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '¡Hi, nombre!',
+            '¡Hola, $username!',
             style: TextStyle(
               fontSize: 30,
               fontFamily: 'Montserrat',

@@ -13,7 +13,8 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: BlocProvider(
           create: (context) => HomeBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context)),
+              userRepository: RepositoryProvider.of<UserRepository>(context))
+            ..add(const HomeLoad()),
           child: const HomeBody(),
         ),
       ),

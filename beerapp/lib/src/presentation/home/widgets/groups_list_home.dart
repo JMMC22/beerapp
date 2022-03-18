@@ -1,17 +1,15 @@
+import 'package:beerapp/src/data/user/models/Group.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class GroupListHome extends StatelessWidget {
-  GroupListHome({Key? key}) : super(key: key);
+  final List<Group> groups;
 
-  final List<String> testList = [
-    'test1',
-    'test2',
-    'test1',
-    'test2',
-    'test1',
-    'test2'
-  ];
+  GroupListHome({
+    Key? key,
+    required this.groups,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,10 +33,11 @@ class GroupListHome extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 25),
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: testList.length,
+            itemCount: groups.length,
             itemBuilder: (context, index) {
               return GroupItemList(
                 index: index,
+                groups: groups,
               );
             },
             shrinkWrap: true,
@@ -51,20 +50,13 @@ class GroupListHome extends StatelessWidget {
 
 class GroupItemList extends StatelessWidget {
   final int index;
+  final List<Group> groups;
 
   GroupItemList({
     Key? key,
     required this.index,
+    required this.groups,
   }) : super(key: key);
-
-  final List<String> testList = [
-    'test1',
-    'test2',
-    'test1',
-    'test2',
-    'test1',
-    'test2'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +94,7 @@ class GroupItemList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    testList[index],
+                    groups[index].name,
                     style: TextStyle(
                       fontSize: 18,
                       fontFamily: 'Montserrat',

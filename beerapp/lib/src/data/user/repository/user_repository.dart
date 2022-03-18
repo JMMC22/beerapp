@@ -9,7 +9,7 @@ import '../models/User.dart';
 abstract class IUserRepository {
   Future<void> registerUser(String username);
   Future<void> updateUser(User user);
-  Future<void> getUserById(String id);
+  Future<User> getUserById(String id);
   Future<bool> isUsernameAvailable(String username);
 }
 
@@ -17,22 +17,29 @@ class UserRepository implements IUserRepository {
   final _userCollection = FirebaseFirestore.instance.collection("users");
 
   @override
-  Future<void> getUserById(String id) {
-    // TODO: implement getUserById
-    throw UnimplementedError();
+  Future<User> getUserById(String id) async {
+    log('Get user');
+    return await _userCollection
+        .doc(id)
+        .get()
+        .then((value) => User.fromMap(value.data()!))
+        .catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
   }
 
   /// Register user
   @override
   Future<void> registerUser(String username) async {
     log('Registering user');
-
     User user = User(
-      id: UniqueKey().toString(),
-      username: username,
-      avatar: "",
-      createdAt: DateTime.now(),
-    );
+        id: UniqueKey().toString(),
+        username: username,
+        avatar: "",
+        createdAt: DateTime.now(),
+        groups: []);
 
     await _userCollection
         .doc(user.id)

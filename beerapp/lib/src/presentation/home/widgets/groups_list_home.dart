@@ -1,6 +1,8 @@
 import 'package:beerapp/src/data/user/models/Group.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class GroupListHome extends StatelessWidget {
   final List<Group> groups;
@@ -60,6 +62,7 @@ class GroupItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting();
     return GestureDetector(
       onTap: () => Navigator.of(context).pushNamed('/group'),
       child: Container(
@@ -103,7 +106,8 @@ class GroupItemList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '31 Oct 2022',
+                    DateFormat('dd MMMM yyyy', 'es')
+                        .format(groups[index].createdAt),
                     style: TextStyle(
                       fontSize: 13,
                       fontFamily: 'Montserrat',
@@ -115,7 +119,7 @@ class GroupItemList extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '69,50€',
+                '${groups[index].totalAmount} €',
                 style: TextStyle(
                   fontSize: 24,
                   fontFamily: 'Montserrat',

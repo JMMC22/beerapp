@@ -19,7 +19,7 @@ class Group extends Equatable {
       name: json["name"],
       image: json["image"],
       createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
-      totalAmount: json["totalAmount"]);
+      totalAmount: double.parse(json["totalAmount"]));
 
   Map<String, dynamic> toMap() => {
         "id": id,

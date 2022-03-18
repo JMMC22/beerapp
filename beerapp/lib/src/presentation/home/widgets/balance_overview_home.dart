@@ -41,7 +41,7 @@ class BalanceOverviewHome extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  '0,00€',
+                  '0.00 €',
                   style: TextStyle(
                     fontSize: 48,
                     fontFamily: 'Montserrat',

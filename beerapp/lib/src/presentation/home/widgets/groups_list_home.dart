@@ -20,14 +20,25 @@ class GroupListHome extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Grupos',
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w700,
-                color: AppCustomTheme.colors.black,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  'Grupos',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    color: AppCustomTheme.colors.black,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/create-group'),
+                  iconSize: 25,
+                  splashColor: Colors.transparent,
+                  icon: const Icon(Icons.add_rounded),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 15),

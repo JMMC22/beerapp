@@ -21,34 +21,54 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      cursorColor: AppCustomTheme.colors.grey,
-      decoration: InputDecoration(
-        hintText: widget.tintText,
-        hintStyle: TextStyle(
-          fontSize: 18,
-          fontFamily: 'Montserrat',
-          fontWeight: FontWeight.w700,
-          color: AppCustomTheme.colors.grey,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.tintText,
+          style: TextStyle(
+            fontSize: 13,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w600,
+            color: AppCustomTheme.colors.black,
+          ),
         ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppCustomTheme.colors.grey),
+        const SizedBox(height: 5),
+        TextField(
+          cursorColor: AppCustomTheme.colors.grey,
+          decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: widget.tintText,
+            hintStyle: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+              color: AppCustomTheme.colors.grey,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppCustomTheme.colors.lightGrey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppCustomTheme.colors.grey),
+            ),
+            errorText: widget.errorText,
+            errorStyle: TextStyle(
+              fontSize: 13,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+              color: AppCustomTheme.colors.red,
+            ),
+          ),
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w700,
+            color: AppCustomTheme.colors.black,
+          ),
+          onChanged: widget.validator,
         ),
-        errorText: widget.errorText,
-        errorStyle: TextStyle(
-          fontSize: 13,
-          fontFamily: 'Montserrat',
-          fontWeight: FontWeight.w700,
-          color: AppCustomTheme.colors.red,
-        ),
-      ),
-      style: TextStyle(
-        fontSize: 18,
-        fontFamily: 'Montserrat',
-        fontWeight: FontWeight.w700,
-        color: AppCustomTheme.colors.black,
-      ),
-      onChanged: widget.validator,
+      ],
     );
   }
 }

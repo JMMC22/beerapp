@@ -1,4 +1,5 @@
 import 'package:beerapp/src/presentation/commons/loading.dart';
+import 'package:beerapp/src/presentation/groups/create/view/creategroup_page.dart';
 import 'package:beerapp/src/presentation/groups/details/view/group_details_page.dart';
 import 'package:beerapp/src/presentation/home/view/home_page.dart';
 import 'package:beerapp/src/presentation/profile/view/profile_page.dart';
@@ -27,6 +28,8 @@ class RouterGenerator {
             builder: (context) => const GroupDetailsPage());
       case '/loading':
         return MaterialPageRoute(builder: (context) => const LoadingScreen());
+      case '/create-group':
+        return MaterialPageRoute(builder: (context) => const CreateGroupPage());
       default:
         return _errorRoute();
     }

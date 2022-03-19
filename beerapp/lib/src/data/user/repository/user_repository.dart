@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../preferences/user_preferences.dart';
+import '../models/Group.dart';
 import '../models/User.dart';
 
 abstract class IUserRepository {
@@ -11,6 +13,7 @@ abstract class IUserRepository {
   Future<void> updateUser(User user);
   Future<User> getUserById(String id);
   Future<bool> isUsernameAvailable(String username);
+  Future<void> addGroupToUsers(List<User> members, Group group);
 }
 
 class UserRepository implements IUserRepository {
@@ -35,7 +38,7 @@ class UserRepository implements IUserRepository {
   Future<void> registerUser(String username) async {
     log('Registering user');
     User user = User(
-        id: UniqueKey().toString(),
+        id: Uuid().v1(),
         username: username,
         avatar: "",
         createdAt: DateTime.now(),
@@ -64,5 +67,21 @@ class UserRepository implements IUserRepository {
         .get();
     if (user.docs.isEmpty) return true;
     return false;
+  }
+
+  @override
+  Future<void> addGroupToUsers(List<User> members, Group group) async {
+    var client = FirebaseFirestore.instance.batch();
+    members.forEach((user) {
+      client.update(_userCollection.doc(user.id), {
+        'groups': FieldValue.arrayUnion([group.toMap()])
+      });
+    });
+    client.commit();
+    /*await _userCollection.doc(user.id).update({
+      "groups": FieldValue.arrayUnion([group.toMap()])
+    }).catchError((error) {
+      log(error.toString());
+    });*/
   }
 }

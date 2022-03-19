@@ -1,4 +1,5 @@
 import 'package:beerapp/src/data/user/repository/group_repository.dart';
+import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/presentation/groups/create/bloc/bloc/creategroup_bloc.dart';
 import 'package:beerapp/src/presentation/groups/create/view/creategroup_body.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class CreateGroupPage extends StatelessWidget {
         create: (context) => GroupRepository(),
         child: BlocProvider<CreategroupBloc>(
           create: (context) => CreategroupBloc(
-              groupRepository: RepositoryProvider.of<GroupRepository>(context)),
+              groupRepository: RepositoryProvider.of<GroupRepository>(context),
+              userRepository: RepositoryProvider.of<UserRepository>(context)),
           child: CreateGroupBody(),
         ),
       ),

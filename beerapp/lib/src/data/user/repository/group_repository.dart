@@ -19,9 +19,10 @@ class GroupRepository extends IGroupRepository {
     await _groupCollection
         .doc(group.id)
         .set(group.toMap())
-        .catchError((error) => log(error));
-
-    log('Group created.');
+        .then((value) => log('Group created.'))
+        .catchError(
+          (error) => log(error.toString()),
+        );
   }
 
   @override

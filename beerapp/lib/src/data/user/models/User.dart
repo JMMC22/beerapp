@@ -33,7 +33,7 @@ class User extends Equatable {
         "username": username,
         "avatar": avatar,
         "createdAt": createdAt,
-        "groups": List<Group>.from(groups.map((group) => group.toMap())),
+        "groups": groups.map((group) => group.toMap()).toList(),
       };
 
   User copyWith({

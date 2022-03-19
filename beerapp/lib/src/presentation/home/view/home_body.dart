@@ -5,8 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../commons/commons_widgets.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({Key? key}) : super(key: key);
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +36,7 @@ class HomeBody extends StatelessWidget {
                 const SizedBox(height: 30),
                 GroupListHome(
                   groups: state.user.groups,
+                  refreshScreen: () => setState(() {}),
                 ),
               ],
             ),

@@ -6,10 +6,12 @@ import 'package:intl/intl.dart';
 
 class GroupListHome extends StatelessWidget {
   final List<Group> groups;
+  final Function refreshScreen;
 
   GroupListHome({
     Key? key,
     required this.groups,
+    required this.refreshScreen,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class GroupListHome extends StatelessWidget {
               return GroupItemList(
                 index: index,
                 groups: groups,
+                refreshScreen: refreshScreen,
               );
             },
             shrinkWrap: true,
@@ -64,12 +67,14 @@ class GroupListHome extends StatelessWidget {
 class GroupItemList extends StatelessWidget {
   final int index;
   final List<Group> groups;
+  final Function refreshScreen;
 
-  GroupItemList({
-    Key? key,
-    required this.index,
-    required this.groups,
-  }) : super(key: key);
+  GroupItemList(
+      {Key? key,
+      required this.index,
+      required this.groups,
+      required this.refreshScreen})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

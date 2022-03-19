@@ -16,7 +16,11 @@ class CreateGroupBody extends StatelessWidget {
     String name = "";
     return BlocListener<CreategroupBloc, CreategroupState>(
       listener: (context, state) {
-        if (state is CreategroupSuccess) Navigator.pop(context);
+        if (state is CreategroupSuccess) {
+          Navigator.pushReplacementNamed(context, '/');
+        } else if (state is CreategroupNameValidate) {
+          name = state.name;
+        }
       },
       child: BlocBuilder<CreategroupBloc, CreategroupState>(
         builder: (context, state) {
@@ -25,9 +29,17 @@ class CreateGroupBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Visibility(
+                    visible: (state is CreategroupFailure) ? true : false,
+                    child: const ErrorAlert()),
                 CustomTextField(
-                    tintText: 'Nombre grupo',
-                    validator: (value) => name = value),
+                  tintText: 'Nombre grupo',
+                  validator: (value) => context
+                      .read<CreategroupBloc>()
+                      .add(GroupNameOnChanged(value)),
+                  errorText:
+                      (state is CreategroupNameUnvalidate) ? state.error : null,
+                ),
                 const SizedBox(height: 40),
                 Text(
                   'Añadir miembros',
@@ -45,9 +57,11 @@ class CreateGroupBody extends StatelessWidget {
                 const SizedBox(height: 40),
                 CustomButton(
                     title: 'Crear',
-                    onPressed: () => context
-                        .read<CreategroupBloc>()
-                        .add(CreategroupEvent(name, [])))
+                    onPressed: (state is CreategroupNameValidate)
+                        ? () => context
+                            .read<CreategroupBloc>()
+                            .add(CreateGroupEvent(name, []))
+                        : null)
               ],
             ),
           );

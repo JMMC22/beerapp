@@ -26,7 +26,7 @@ class GroupDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           icon: const Icon(Icons.arrow_back_ios),
           color: AppCustomTheme.colors.black,
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/'),
         ),
       ),
       body: const GroupDetailsBody(),

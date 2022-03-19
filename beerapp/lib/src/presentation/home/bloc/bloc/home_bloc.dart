@@ -23,6 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       var id = await UserPreferences.getUserId();
       User user = await _userRepository.getUserById(id!);
+      user.groups.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       emit(HomeSuccess(user));
     } catch (e) {
       emit(HomeFailure(e.toString()));

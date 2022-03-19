@@ -1,4 +1,3 @@
-import 'package:beerapp/src/data/user/models/User.dart';
 import 'package:equatable/equatable.dart';
 
 class Group extends Equatable {
@@ -7,26 +6,26 @@ class Group extends Equatable {
   final String image;
   final DateTime createdAt;
   final double totalAmount;
-  final List<User> members;
+  final List<UserItem> members;
 
-  const Group(
-      {required this.id,
-      required this.name,
-      required this.image,
-      required this.createdAt,
-      required this.totalAmount,
-      required this.members});
+  const Group({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.createdAt,
+    required this.totalAmount,
+    required this.members,
+  });
 
   factory Group.fromMap(Map<String, dynamic> json) {
-    List<User> members = [];
-    json["members"].forEach((user) => members.add(User.fromMap(user)));
     return Group(
       id: json["id"],
       name: json["name"],
       image: json["image"],
       createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
-      totalAmount: double.parse(json["totalAmount"]),
-      members: members,
+      totalAmount: double.parse(json["totalAmount"].toString()),
+      members: List<UserItem>.from(
+          json["members"].map((user) => UserItem.fromMap(user))),
     );
   }
 
@@ -36,7 +35,7 @@ class Group extends Equatable {
         "image": image,
         "createdAt": createdAt,
         "totalAmount": totalAmount,
-        "members": List<User>.from(members.map((user) => user.toMap())),
+        "members": members.map((user) => user.toMap()).toList(),
       };
 
   Group copyWith({id, name, image, createdAt, totalAmount, members}) => Group(
@@ -55,4 +54,30 @@ class Group extends Equatable {
 
   @override
   List<Object?> get props => [id, name, image, createdAt, totalAmount, members];
+}
+
+class UserItem {
+  final String id;
+  final double totalAmount;
+  final int totalConsumptions;
+
+  UserItem({
+    required this.id,
+    required this.totalAmount,
+    required this.totalConsumptions,
+  });
+
+  factory UserItem.fromMap(Map<String, dynamic> json) {
+    return UserItem(
+      id: json["id"],
+      totalAmount: double.parse(json["totalAmount"].toString()),
+      totalConsumptions: json["totalConsumptions"],
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "totalConsumptions": totalConsumptions,
+        "totalAmount": totalAmount,
+      };
 }

@@ -5,8 +5,12 @@ import '../../../../themes/themes.dart';
 
 class MemberListSearch extends StatefulWidget {
   final TextEditingController searchController;
-  const MemberListSearch({Key? key, required this.searchController})
-      : super(key: key);
+  final VoidCallback searchListenerFuction;
+  const MemberListSearch({
+    Key? key,
+    required this.searchController,
+    required this.searchListenerFuction,
+  }) : super(key: key);
 
   @override
   State<MemberListSearch> createState() => _MemberListSearchState();
@@ -16,9 +20,7 @@ class _MemberListSearchState extends State<MemberListSearch> {
   @override
   void initState() {
     super.initState();
-    widget.searchController.addListener(() {
-      print(widget.searchController.text);
-    });
+    widget.searchController.addListener(widget.searchListenerFuction);
   }
 
   @override

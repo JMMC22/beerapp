@@ -58,11 +58,13 @@ class Group extends Equatable {
 
 class UserItem {
   final String id;
+  final String avatar;
   final double totalAmount;
   final int totalConsumptions;
 
   UserItem({
     required this.id,
+    required this.avatar,
     required this.totalAmount,
     required this.totalConsumptions,
   });
@@ -70,6 +72,7 @@ class UserItem {
   factory UserItem.fromMap(Map<String, dynamic> json) {
     return UserItem(
       id: json["id"],
+      avatar: json["avatar"],
       totalAmount: double.parse(json["totalAmount"].toString()),
       totalConsumptions: json["totalConsumptions"],
     );
@@ -77,6 +80,7 @@ class UserItem {
 
   Map<String, dynamic> toMap() => {
         "id": id,
+        "avatar": avatar,
         "totalConsumptions": totalConsumptions,
         "totalAmount": totalAmount,
       };

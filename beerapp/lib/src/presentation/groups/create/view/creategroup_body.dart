@@ -53,6 +53,11 @@ class CreateGroupBody extends StatelessWidget {
                 const SizedBox(height: 5),
                 MemberListSearch(
                   searchController: searchcontroller,
+                  searchListenerFuction: () {
+                    context
+                        .read<CreategroupBloc>()
+                        .add(MembersSearchOnChanged(searchcontroller.text));
+                  },
                 ),
                 const SizedBox(height: 40),
                 CustomButton(

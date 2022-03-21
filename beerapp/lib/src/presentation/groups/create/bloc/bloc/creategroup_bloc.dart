@@ -23,6 +23,7 @@ class CreategroupBloc extends Bloc<CreategroupEvent, CreategroupState> {
         super(CreategroupInitial()) {
     on<CreateGroupEvent>(_onCreateGroup);
     on<GroupNameOnChanged>(_nameOnchanged);
+    on<MembersSearchOnChanged>(_membersSearchOnChanged);
   }
 
   void _onCreateGroup(
@@ -33,14 +34,8 @@ class CreategroupBloc extends Bloc<CreategroupEvent, CreategroupState> {
     final List<User> members = event.members;
 
     members.add(await _getLoggedUser()); // Add current user
-    final Group group = Group(
-        id: Uuid().v1(),
-        name: name,
-        createdAt: DateTime.now(),
-        image: 'image',
-        totalAmount: 0.0,
-        members: List<UserItem>.from(members.map((user) =>
-            UserItem(id: user.id, totalAmount: 0.0, totalConsumptions: 0))));
+    final Group group = _initialGroup(name, members);
+
     try {
       await _groupRepository.createGroup(group);
       await _userRepository.addGroupToUsers(members, group);
@@ -64,5 +59,29 @@ class CreategroupBloc extends Bloc<CreategroupEvent, CreategroupState> {
     } else {
       emit(CreategroupNameValidate(event.name));
     }
+  }
+
+  void _membersSearchOnChanged(
+      MembersSearchOnChanged event, Emitter<CreategroupState> emit) {
+    print(event.username);
+  }
+
+  Group _initialGroup(String name, List<User> members) {
+    return Group(
+      id: const Uuid().v1(),
+      name: name,
+      createdAt: DateTime.now(),
+      image: 'image',
+      totalAmount: 0.0,
+      members: List<UserItem>.from(
+        members.map(
+          (user) => UserItem(
+              id: user.id,
+              avatar: user.avatar,
+              totalAmount: 0.0,
+              totalConsumptions: 0),
+        ),
+      ),
+    );
   }
 }

@@ -38,11 +38,13 @@ class UserRepository implements IUserRepository {
   Future<void> registerUser(String username) async {
     log('Registering user');
     User user = User(
-        id: Uuid().v1(),
-        username: username,
-        avatar: "",
-        createdAt: DateTime.now(),
-        groups: []);
+      id: Uuid().v1(),
+      username: username,
+      avatar: "",
+      createdAt: DateTime.now(),
+      groups: [],
+      caseSearch: setSearchParam(username),
+    );
 
     await _userCollection
         .doc(user.id)
@@ -72,16 +74,31 @@ class UserRepository implements IUserRepository {
   @override
   Future<void> addGroupToUsers(List<User> members, Group group) async {
     var client = FirebaseFirestore.instance.batch();
-    members.forEach((user) {
+
+    GroupItem groupItem = GroupItem(
+        id: group.id,
+        name: group.name,
+        image: group.image,
+        createdAt: group.createdAt,
+        totalAmount: group.totalAmount);
+
+    for (var user in members) {
       client.update(_userCollection.doc(user.id), {
-        'groups': FieldValue.arrayUnion([group.toMap()])
+        'groups': FieldValue.arrayUnion([groupItem.toMap()])
       });
-    });
+    }
     client.commit();
-    /*await _userCollection.doc(user.id).update({
-      "groups": FieldValue.arrayUnion([group.toMap()])
-    }).catchError((error) {
-      log(error.toString());
-    });*/
+  }
+
+  // TODO: CLEAN
+  // Fuction to save username partly
+  List<String> setSearchParam(String username) {
+    List<String> caseSearchList = List.empty(growable: true);
+    String temp = "";
+    for (int i = 0; i < username.length; i++) {
+      temp = temp + username[i];
+      caseSearchList.add(temp);
+    }
+    return caseSearchList;
   }
 }

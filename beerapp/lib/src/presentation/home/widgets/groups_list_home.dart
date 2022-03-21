@@ -1,11 +1,12 @@
-import 'package:beerapp/src/data/user/models/Group.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import '../../../data/user/models/User.dart';
+
 class GroupListHome extends StatelessWidget {
-  final List<Group> groups;
+  final List<GroupItem> groups;
   final Function refreshScreen;
 
   GroupListHome({
@@ -66,7 +67,7 @@ class GroupListHome extends StatelessWidget {
 
 class GroupItemList extends StatelessWidget {
   final int index;
-  final List<Group> groups;
+  final List<GroupItem> groups;
   final Function refreshScreen;
 
   GroupItemList(

@@ -32,6 +32,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var id = await UserPreferences.getUserId();
       User user = await _userRepository.getUserById(id!);
       user.groups.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
       emit(HomeSuccess(
           user, _getTotalConsumptionsToday(user), _getTotalAmountToday(user)));
     } catch (e) {

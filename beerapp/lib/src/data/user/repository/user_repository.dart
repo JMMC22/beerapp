@@ -17,6 +17,7 @@ abstract class IUserRepository {
   Future<void> addGroupToUsers(List<User> members, Group group);
   Future<void> addConsumptionToUser(String id, Consumption consumption);
   Future<void> deleteGroupByUser(String userId, GroupItem group);
+  Future<void> updateGroupToUsers(Group group);
 }
 
 class UserRepository implements IUserRepository {
@@ -90,6 +91,28 @@ class UserRepository implements IUserRepository {
       client.update(_userCollection.doc(user.id), {
         'groups': FieldValue.arrayUnion([groupItem.toMap()])
       });
+    }
+    client.commit();
+  }
+
+  @override
+  Future<void> updateGroupToUsers(Group group) async {
+    var client = FirebaseFirestore.instance.batch();
+
+    GroupItem groupItem = GroupItem(
+        id: group.id,
+        name: group.name,
+        image: group.image,
+        createdAt: group.createdAt,
+        totalAmount: group.totalAmount);
+
+    for (var user in group.members) {
+      User databaseUser = await getUserById(user.id);
+      databaseUser.groups
+          .firstWhere((element) => element.id == group.id)
+          .totalAmount = group.totalAmount;
+
+      client.update(_userCollection.doc(user.id), databaseUser.toMap());
     }
     client.commit();
   }

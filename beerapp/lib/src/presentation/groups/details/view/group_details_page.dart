@@ -66,36 +66,43 @@ class FloatActionButtonRounds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: AppCustomTheme.colors.grey,
+      backgroundColor: AppCustomTheme.colors.lightGrey,
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Image(
+          image: AssetImage('assets/icons/beer_plus_white.png'),
+        ),
+      ),
       onPressed: () {
         showModalBottomSheet(
-            backgroundColor: AppCustomTheme.colors.backgroundGrey,
-            context: context,
-            builder: (_) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                    left: 30, top: 25, right: 15, bottom: 50),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CustomButton(
-                        title: 'Ronda para todos',
-                        onPressed: () {
-                          BlocProvider.of<GroupDetailsBloc>(context)
-                              .add(const GroupDetailsRoundForAll());
-                          Navigator.pop(context);
-                        }),
-                    const Divider(height: 10),
-                    const CustomButton(
-                        title: 'Selección específica', onPressed: null),
-                    const Divider(height: 10),
-                    const CustomButton(
-                        title: 'Cambiar precio predeterminado',
-                        onPressed: null),
-                  ],
-                ),
-              );
-            });
+          backgroundColor: AppCustomTheme.colors.backgroundGrey,
+          context: context,
+          builder: (_) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  left: 30, top: 25, right: 15, bottom: 50),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomButton(
+                      title: 'Añadir ronda para todos',
+                      onPressed: () {
+                        BlocProvider.of<GroupDetailsBloc>(context)
+                            .add(const GroupDetailsRoundForAll());
+                        Navigator.pop(context);
+                      }),
+                  const Divider(height: 10),
+                  const CustomButton(
+                      title: 'Seleccionar a quién añadir ronda',
+                      onPressed: null),
+                  const Divider(height: 10),
+                  const CustomButton(
+                      title: 'Cambiar precio estándar', onPressed: null),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }

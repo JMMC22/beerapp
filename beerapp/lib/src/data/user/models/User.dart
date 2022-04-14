@@ -77,9 +77,9 @@ class GroupItem {
   final String name;
   final String image;
   final DateTime createdAt;
-  final double totalAmount;
+  double totalAmount;
 
-  const GroupItem({
+  GroupItem({
     required this.id,
     required this.name,
     required this.image,

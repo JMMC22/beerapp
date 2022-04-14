@@ -41,7 +41,11 @@ class GroupDetailsBloc extends Bloc<GroupDetailsEvent, GroupDetailsState> {
     GroupDetailsRoundForAll event,
     Emitter<GroupDetailsState> emit,
   ) async {
+    // Add total consumtions and amout to group
     _group.totalConsumptions += _group.members.length;
+    _group.totalAmount += _group.members.length * _group.standardPrice;
+
+    //Add consumptions to users
     for (var user in _group.members) {
       user.totalConsumptions += 1;
       Consumption consumption = Consumption(
@@ -52,6 +56,7 @@ class GroupDetailsBloc extends Bloc<GroupDetailsEvent, GroupDetailsState> {
       user.consumptions.add(consumption);
       await _userRepository.addConsumptionToUser(user.id, consumption);
     }
+    await _userRepository.updateGroupToUsers(_group);
     await _groupRepository.roundForAllMembers(_group);
     _group = await _groupRepository.getGroupById(_group.id);
     emit(GroupDetailsLoaded(_group));

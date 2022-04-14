@@ -11,12 +11,11 @@ class BalanceGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GroupDetailsBloc, GroupDetailsState>(
         builder: (context, state) {
-      if (state is GroupDetailsLoaded)
+      if (state is GroupDetailsLoaded) {
         return Padding(
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: Container(
             width: double.infinity,
-            height: 120,
             decoration: BoxDecoration(
               color: AppCustomTheme.colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -30,37 +29,53 @@ class BalanceGroup extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 10, bottom: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${state.group.totalConsumptions}',
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                          color: AppCustomTheme.colors.black,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: Text(
+                          'uds',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
+                            color: AppCustomTheme.colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Text(
-                    'Balance',
+                    'Precio estándar: ${state.group.standardPrice ?? 0.0} €',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 12,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w500,
                       color: AppCustomTheme.colors.grey,
                     ),
                   ),
-                  Spacer(),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      '${state.group.totalConsumptions}',
-                      style: TextStyle(
-                        fontSize: 48,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        color: AppCustomTheme.colors.black,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
           ),
         );
+      }
       return Container();
     });
   }

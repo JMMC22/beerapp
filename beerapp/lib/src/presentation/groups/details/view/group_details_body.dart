@@ -17,7 +17,7 @@ class GroupDetailsBody extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 75),
+            const SizedBox(height: 40),
             const BarChartGroup(),
             const BalanceGroup(),
             const SizedBox(height: 30),

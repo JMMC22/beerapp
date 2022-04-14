@@ -28,6 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeLoad event,
     Emitter<HomeState> emit,
   ) async {
+    emit(HomeLoading());
     try {
       var id = await UserPreferences.getUserId();
       User user = await _userRepository.getUserById(id!);

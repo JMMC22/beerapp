@@ -41,6 +41,8 @@ class GroupDetailsBloc extends Bloc<GroupDetailsEvent, GroupDetailsState> {
     GroupDetailsRoundForAll event,
     Emitter<GroupDetailsState> emit,
   ) async {
+    emit(GroupDetailsLoading());
+
     // Add total consumtions and amout to group
     _group.totalConsumptions += _group.members.length;
     _group.totalAmount += _group.members.length * _group.standardPrice;

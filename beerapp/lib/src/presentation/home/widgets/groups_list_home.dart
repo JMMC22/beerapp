@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../data/user/models/User.dart';
 
-class GroupListHome extends StatelessWidget {
+class GroupListHome extends StatefulWidget {
   final List<GroupItem> groups;
   final Function refreshScreen;
 
@@ -17,6 +17,11 @@ class GroupListHome extends StatelessWidget {
     required this.refreshScreen,
   }) : super(key: key);
 
+  @override
+  State<GroupListHome> createState() => _GroupListHomeState();
+}
+
+class _GroupListHomeState extends State<GroupListHome> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,12 +58,89 @@ class GroupListHome extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 25),
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const Divider(),
-            itemCount: groups.length,
+            itemCount: widget.groups.length,
             itemBuilder: (context, index) {
-              return GroupItemList(
-                index: index,
-                groups: groups,
-                refreshScreen: refreshScreen,
+              return Dismissible(
+                key: UniqueKey(),
+                direction: DismissDirection.endToStart,
+                onDismissed: (direction) {
+                  BlocProvider.of<HomeBloc>(context)
+                      .add(HomeLeaveGroupLoad(widget.groups[index]));
+                  widget.groups.remove(widget.groups[index]);
+                  setState(() {});
+                },
+                confirmDismiss: (DismissDirection direction) async {
+                  return await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          "Eliminar",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w800,
+                            color: AppCustomTheme.colors.black,
+                          ),
+                        ),
+                        content: Text(
+                          "¿Estás seguro que quieres salir del grupo?",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500,
+                            color: AppCustomTheme.colors.black,
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: Text(
+                              "Salir",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w700,
+                                color: AppCustomTheme.colors.black,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text(
+                              "Cancelar",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w700,
+                                color: AppCustomTheme.colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  color: AppCustomTheme.colors.red,
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    'Salir del grupo',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
+                      color: AppCustomTheme.colors.white,
+                    ),
+                  ),
+                ),
+                child: GroupItemList(
+                  index: index,
+                  groups: widget.groups,
+                  refreshScreen: widget.refreshScreen,
+                ),
               );
             },
             shrinkWrap: true,

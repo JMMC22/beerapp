@@ -1,3 +1,4 @@
+import 'package:beerapp/src/data/user/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/presentation/home/bloc/bloc/home_bloc.dart';
 import 'package:beerapp/src/presentation/home/view/home_body.dart';
@@ -13,7 +14,8 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: BlocProvider(
           create: (context) => HomeBloc(
-              userRepository: RepositoryProvider.of<UserRepository>(context))
+              userRepository: RepositoryProvider.of<UserRepository>(context),
+              groupRepository: RepositoryProvider.of<GroupRepository>(context))
             ..add(const HomeLoad()),
           child: const HomeBody(),
         ),

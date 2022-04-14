@@ -1,3 +1,4 @@
+import 'package:beerapp/src/data/user/repository/group_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:beerapp/src/presentation/navigation/cubit/cubit/navigation_cubit.dart';
 import 'package:beerapp/src/presentation/root_page.dart';
@@ -15,24 +16,24 @@ Future<void> main() async {
   String? isLogged = await UserPreferences.getUserId();
 
   runApp(MyApp(
-    userRepository: UserRepository(),
     initialRoute: isLogged != null ? '/' : '/register',
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final UserRepository userRepository;
   final String initialRoute;
 
   const MyApp({
     Key? key,
-    required this.userRepository,
     required this.initialRoute,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: userRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => UserRepository()),
+        RepositoryProvider(create: (context) => GroupRepository())
+      ],
       child: BlocProvider<NavigationCubit>(
         create: (context) => NavigationCubit(),
         child: GestureDetector(

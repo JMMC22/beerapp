@@ -10,3 +10,8 @@ abstract class HomeEvent extends Equatable {
 class HomeLoad extends HomeEvent {
   const HomeLoad();
 }
+
+class HomeLeaveGroupLoad extends HomeEvent {
+  final GroupItem group;
+  const HomeLeaveGroupLoad(this.group);
+}

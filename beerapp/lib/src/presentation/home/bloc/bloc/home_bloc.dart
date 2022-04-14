@@ -1,9 +1,11 @@
 import 'package:beerapp/src/data/user/models/Consumption.dart';
+import 'package:beerapp/src/data/user/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../data/user/models/Group.dart';
 import '../../../../data/user/models/User.dart';
 
 part 'home_event.dart';
@@ -11,10 +13,15 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UserRepository _userRepository;
-  HomeBloc({required UserRepository userRepository})
+  final GroupRepository _groupRepository;
+  HomeBloc(
+      {required UserRepository userRepository,
+      required GroupRepository groupRepository})
       : _userRepository = userRepository,
+        _groupRepository = groupRepository,
         super(HomeLoading()) {
     on<HomeLoad>(_fetchHomePage);
+    on<HomeLeaveGroupLoad>(_leaveGroup);
   }
 
   void _fetchHomePage(
@@ -30,6 +37,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (e) {
       emit(HomeFailure(e.toString()));
     }
+  }
+
+  void _leaveGroup(
+    HomeLeaveGroupLoad event,
+    Emitter<HomeState> emit,
+  ) async {
+    String? id = await UserPreferences.getUserId();
+    _userRepository.deleteGroupByUser(id!, event.group);
   }
 
   int _getTotalConsumptionsToday(User user) {

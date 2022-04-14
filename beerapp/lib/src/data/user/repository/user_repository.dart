@@ -17,6 +17,7 @@ abstract class IUserRepository {
   Future<bool> isUsernameAvailable(String username);
   Future<void> addGroupToUsers(List<User> members, Group group);
   Future<void> addConsumptionToUser(String id, Consumption consumption);
+  Future<void> deleteGroupByUser(String userId, GroupItem group);
 }
 
 class UserRepository implements IUserRepository {
@@ -129,6 +130,17 @@ class UserRepository implements IUserRepository {
   Future<void> addConsumptionToUser(String id, Consumption consumption) async {
     return await _userCollection.doc(id).update({
       'consumptions': FieldValue.arrayUnion([consumption.toMap()])
+    }).catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
+  }
+
+  @override
+  Future<void> deleteGroupByUser(String userId, GroupItem group) async {
+    return await _userCollection.doc(userId).update({
+      'groups': FieldValue.arrayRemove([group.toMap()])
     }).catchError(
       (error) {
         log(error.toString());

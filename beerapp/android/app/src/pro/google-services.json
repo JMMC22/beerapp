@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "310268323776",
+    "project_id": "beerapp-7c898",
+    "storage_bucket": "beerapp-7c898.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310268323776:android:f4d9dde75938ac00840a25",
+        "android_client_info": {
+          "package_name": "com.beerapp.we"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310268323776-7faqv91de8ddcsq5q7j95o7attj7ir4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC12wxDN8D66wB_sdWMgXFBzDaryTOvWxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310268323776-7faqv91de8ddcsq5q7j95o7attj7ir4g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "310268323776-n5oo34h80nof9guhe95ki4a9qtre3m1t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beerapp.we"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310268323776:android:96178f2879917425840a25",
+        "android_client_info": {
+          "package_name": "com.beerapp.we.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310268323776-7faqv91de8ddcsq5q7j95o7attj7ir4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC12wxDN8D66wB_sdWMgXFBzDaryTOvWxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310268323776-7faqv91de8ddcsq5q7j95o7attj7ir4g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "310268323776-n5oo34h80nof9guhe95ki4a9qtre3m1t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beerapp.we"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

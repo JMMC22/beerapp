@@ -35,9 +35,17 @@ class MyApp extends StatelessWidget {
       value: userRepository,
       child: BlocProvider<NavigationCubit>(
         create: (context) => NavigationCubit(),
-        child: MaterialApp(
-          initialRoute: initialRoute,
-          onGenerateRoute: RouterGenerator.generateRoute,
+        child: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            }
+          },
+          child: MaterialApp(
+            initialRoute: initialRoute,
+            onGenerateRoute: RouterGenerator.generateRoute,
+          ),
         ),
       ),
     );

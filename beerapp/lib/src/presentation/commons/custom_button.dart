@@ -26,8 +26,15 @@ class _CustomButtonState extends State<CustomButton> {
           if (states.contains(MaterialState.disabled)) {
             return AppCustomTheme.colors.lightGrey;
           }
-          return AppCustomTheme.colors.blue;
+          return AppCustomTheme.colors.white;
         }),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(17.0),
+          ),
+        ),
+        shadowColor: MaterialStateProperty.all(AppCustomTheme.colors.black),
+        elevation: MaterialStateProperty.all(3),
       ),
       child: Text(
         widget.title,
@@ -35,7 +42,7 @@ class _CustomButtonState extends State<CustomButton> {
           fontSize: 18,
           fontFamily: 'Montserrat',
           fontWeight: FontWeight.w600,
-          color: AppCustomTheme.colors.white,
+          color: AppCustomTheme.colors.black,
         ),
       ),
       onPressed: widget.onPressed,

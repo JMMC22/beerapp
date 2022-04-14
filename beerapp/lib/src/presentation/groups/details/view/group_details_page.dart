@@ -69,6 +69,7 @@ class FloatActionButtonRounds extends StatelessWidget {
       backgroundColor: AppCustomTheme.colors.grey,
       onPressed: () {
         showModalBottomSheet(
+            backgroundColor: AppCustomTheme.colors.backgroundGrey,
             context: context,
             builder: (_) {
               return Padding(

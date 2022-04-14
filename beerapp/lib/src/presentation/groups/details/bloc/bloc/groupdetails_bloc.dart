@@ -48,7 +48,7 @@ class GroupDetailsBloc extends Bloc<GroupDetailsEvent, GroupDetailsState> {
           id: const Uuid().v1(),
           username: user.username,
           createdAt: DateTime.now(),
-          amount: 0.0);
+          amount: _group.standardPrice);
       user.consumptions.add(consumption);
       await _userRepository.addConsumptionToUser(user.id, consumption);
     }

@@ -17,11 +17,13 @@ class HomeLoading extends HomeState {
 class HomeSuccess extends HomeState {
   final User user;
   final int totalConsumptionsToday;
+  final double totalAmountToday;
 
-  const HomeSuccess(this.user, this.totalConsumptionsToday);
+  const HomeSuccess(
+      this.user, this.totalConsumptionsToday, this.totalAmountToday);
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [user, totalConsumptionsToday, totalAmountToday];
 }
 
 class HomeFailure extends HomeState {

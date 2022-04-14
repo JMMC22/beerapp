@@ -25,19 +25,29 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var id = await UserPreferences.getUserId();
       User user = await _userRepository.getUserById(id!);
       user.groups.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      emit(HomeSuccess(user, _getTotalConsumptionsToday(user)));
+      emit(HomeSuccess(
+          user, _getTotalConsumptionsToday(user), _getTotalAmountToday(user)));
     } catch (e) {
       emit(HomeFailure(e.toString()));
     }
   }
 
   int _getTotalConsumptionsToday(User user) {
+    return _getTodayConsumptions(user).length;
+  }
+
+  double _getTotalAmountToday(User user) {
+    return _getTodayConsumptions(user)
+        .fold(0.0, (previousValue, element) => previousValue + element.amount);
+  }
+
+  List<Consumption> _getTodayConsumptions(User user) {
     return user.consumptions
         .where((consumption) =>
             DateTime(consumption.createdAt.year, consumption.createdAt.month,
                 consumption.createdAt.day) ==
             DateTime(
                 DateTime.now().year, DateTime.now().month, DateTime.now().day))
-        .length;
+        .toList();
   }
 }

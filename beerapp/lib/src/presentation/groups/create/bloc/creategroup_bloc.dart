@@ -66,6 +66,12 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
     _group.members = membersUserItems;
     _group.name = state.name.value;
 
+    var price = state.price.value;
+    if (price.contains(",")) {
+      price = price.replaceAll(",", ".");
+    }
+    _group.standardPrice = double.parse(price);
+
     try {
       await _groupRepository.createGroup(_group);
       await _userRepository.addGroupToUsers(members, _group);
@@ -136,6 +142,7 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
         createdAt: DateTime.now(),
         image: 'image',
         totalAmount: 0.0,
+        standardPrice: 0.0,
         totalConsumptions: 0,
         members: const []);
   }

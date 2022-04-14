@@ -6,6 +6,7 @@ class Group extends Equatable {
   String name;
   String image;
   DateTime createdAt;
+  double standardPrice;
   double totalAmount;
   int totalConsumptions;
   List<UserItem> members;
@@ -15,6 +16,7 @@ class Group extends Equatable {
     required this.name,
     required this.image,
     required this.createdAt,
+    required this.standardPrice,
     required this.totalAmount,
     required this.totalConsumptions,
     required this.members,
@@ -26,6 +28,7 @@ class Group extends Equatable {
       name: json["name"],
       image: json["image"],
       createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
+      standardPrice: double.parse(json["standardPrice"].toString()),
       totalAmount: double.parse(json["totalAmount"].toString()),
       totalConsumptions: json["totalConsumptions"],
       members: List<UserItem>.from(
@@ -38,6 +41,7 @@ class Group extends Equatable {
         "name": name,
         "image": image,
         "createdAt": createdAt,
+        "standardPrice": standardPrice,
         "totalAmount": totalAmount,
         "totalConsumptions": totalConsumptions,
         "members": members.map((user) => user.toMap()).toList(),
@@ -48,6 +52,7 @@ class Group extends Equatable {
           name,
           image,
           createdAt,
+          standardPrice,
           totalAmount,
           members,
           totalConsumptions}) =>
@@ -56,6 +61,7 @@ class Group extends Equatable {
         name: name ?? this.name,
         image: image ?? this.image,
         createdAt: createdAt ?? this.createdAt,
+        standardPrice: standardPrice ?? this.standardPrice,
         totalAmount: totalAmount ?? this.totalAmount,
         totalConsumptions: totalConsumptions ?? this.totalConsumptions,
         members: members ?? this.members,
@@ -67,8 +73,16 @@ class Group extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [id, name, image, createdAt, totalAmount, members, totalConsumptions];
+  List<Object?> get props => [
+        id,
+        name,
+        image,
+        createdAt,
+        standardPrice,
+        totalAmount,
+        members,
+        totalConsumptions
+      ];
 }
 
 class UserItem {

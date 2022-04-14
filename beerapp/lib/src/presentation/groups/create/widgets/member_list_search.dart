@@ -39,8 +39,8 @@ class _MemberListSearchState extends State<MemberListSearch> {
         const SizedBox(height: 20),
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => const SizedBox(
-            height: 5,
+          separatorBuilder: (context, index) => const Divider(
+            height: 10,
           ),
           shrinkWrap: true,
           itemCount: widget.users.length,

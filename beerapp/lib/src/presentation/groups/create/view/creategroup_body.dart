@@ -75,7 +75,8 @@ class GroupPriceTextField extends StatelessWidget {
       builder: (context, state) {
         return CustomTextField(
           tintText: 'Precio estándar',
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          keyboardType: const TextInputType.numberWithOptions(
+              signed: true, decimal: true),
           validator: (value) =>
               context.read<CreateGroupBloc>().add(GroupPriceOnChanged(value)),
           errorText: state.price.invalid ? 'Precio inválido' : null,

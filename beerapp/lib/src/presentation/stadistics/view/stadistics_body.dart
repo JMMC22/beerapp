@@ -31,7 +31,7 @@ class StadisticsBody extends StatelessWidget {
               child: StadisticCard(title: 'Bebidas totales', value: 0),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15.0, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 15.0, left: 30, right: 30),
               child: LineChartStadistics(),
             ),
             const Padding(
@@ -39,7 +39,7 @@ class StadisticsBody extends StatelessWidget {
               child: StadisticCard(title: 'Consumo total', value: 0),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15.0, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 15.0, left: 30, right: 30),
               child: LineChartStadistics(),
             ),
             const Padding(

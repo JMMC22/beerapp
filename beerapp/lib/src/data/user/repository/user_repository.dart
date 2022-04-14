@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:beerapp/src/data/user/models/Consumption.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../preferences/user_preferences.dart';
@@ -42,13 +41,13 @@ class UserRepository implements IUserRepository {
   Future<void> registerUser(String username) async {
     log('Registering user');
     User user = User(
-      id: Uuid().v1(),
+      id: const Uuid().v1(),
       username: username,
       avatar: "",
       createdAt: DateTime.now(),
-      groups: [],
+      groups: const [],
       caseSearch: setSearchParam(username),
-      consumptions: [],
+      consumptions: const [],
     );
 
     await _userCollection

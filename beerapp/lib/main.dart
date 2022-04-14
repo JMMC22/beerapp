@@ -1,10 +1,8 @@
 import 'package:beerapp/src/data/user/repository/group_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:beerapp/src/presentation/navigation/cubit/cubit/navigation_cubit.dart';
-import 'package:beerapp/src/presentation/root_page.dart';
 import 'package:beerapp/src/routes/router_generator.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

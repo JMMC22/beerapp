@@ -18,7 +18,7 @@ class _LineChartStadisticsState extends State<LineChartStadistics> {
           aspectRatio: 1.70,
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(18),
                 ),
                 color: AppCustomTheme.colors.white),

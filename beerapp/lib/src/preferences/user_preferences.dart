@@ -4,7 +4,7 @@ class UserPreferences {
   ///
   /// Instantiation of the SharedPreferences library
   ///
-  static final String _kUserIDPrefs = "userId";
+  static const String _kUserIDPrefs = "userId";
 
   /// ------------------------------------------------------------
   /// Method that returns the user id

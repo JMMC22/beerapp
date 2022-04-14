@@ -26,7 +26,7 @@ class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {
     required UserRepository userRepository,
   })  : _groupRepository = groupRepository,
         _userRepository = userRepository,
-        super(CreateGroupState()) {
+        super(const CreateGroupState()) {
     on<CreateInitialGroupEvent>(_onInitialCreateGroup);
     on<SubmittedCreateGroupEvent>(_onCreateGroup);
     on<GroupNameOnChanged>(_nameOnchanged);

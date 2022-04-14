@@ -13,6 +13,7 @@ class UsernameTextField extends StatelessWidget {
       builder: (context, state) {
         return CustomTextField(
           tintText: 'Nombre de usuario',
+          keyboardType: TextInputType.text,
           validator: (username) {
             context.read<RegisterBloc>().add(RegisterUsernameChanged(username));
           },

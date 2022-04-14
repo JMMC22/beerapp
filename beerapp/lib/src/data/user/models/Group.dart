@@ -1,19 +1,22 @@
+import 'package:beerapp/src/data/user/models/Consumption.dart';
 import 'package:equatable/equatable.dart';
 
 class Group extends Equatable {
-  final String id;
-  final String name;
-  final String image;
-  final DateTime createdAt;
-  final double totalAmount;
-  final List<UserItem> members;
+  String id;
+  String name;
+  String image;
+  DateTime createdAt;
+  double totalAmount;
+  int totalConsumptions;
+  List<UserItem> members;
 
-  const Group({
+  Group({
     required this.id,
     required this.name,
     required this.image,
     required this.createdAt,
     required this.totalAmount,
+    required this.totalConsumptions,
     required this.members,
   });
 
@@ -24,6 +27,7 @@ class Group extends Equatable {
       image: json["image"],
       createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
       totalAmount: double.parse(json["totalAmount"].toString()),
+      totalConsumptions: json["totalConsumptions"],
       members: List<UserItem>.from(
           json["members"].map((user) => UserItem.fromMap(user))),
     );
@@ -35,15 +39,25 @@ class Group extends Equatable {
         "image": image,
         "createdAt": createdAt,
         "totalAmount": totalAmount,
+        "totalConsumptions": totalConsumptions,
         "members": members.map((user) => user.toMap()).toList(),
       };
 
-  Group copyWith({id, name, image, createdAt, totalAmount, members}) => Group(
+  Group copyWith(
+          {id,
+          name,
+          image,
+          createdAt,
+          totalAmount,
+          members,
+          totalConsumptions}) =>
+      Group(
         id: id ?? this.id,
         name: name ?? this.name,
         image: image ?? this.image,
         createdAt: createdAt ?? this.createdAt,
         totalAmount: totalAmount ?? this.totalAmount,
+        totalConsumptions: totalConsumptions ?? this.totalConsumptions,
         members: members ?? this.members,
       );
 
@@ -53,35 +67,44 @@ class Group extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, name, image, createdAt, totalAmount, members];
+  List<Object?> get props =>
+      [id, name, image, createdAt, totalAmount, members, totalConsumptions];
 }
 
 class UserItem {
   final String id;
+  final String username;
   final String avatar;
-  final double totalAmount;
-  final int totalConsumptions;
+  double totalAmount;
+  int totalConsumptions;
+  List<Consumption> consumptions;
 
-  UserItem({
-    required this.id,
-    required this.avatar,
-    required this.totalAmount,
-    required this.totalConsumptions,
-  });
+  UserItem(
+      {required this.id,
+      required this.username,
+      required this.avatar,
+      required this.totalAmount,
+      required this.totalConsumptions,
+      required this.consumptions});
 
   factory UserItem.fromMap(Map<String, dynamic> json) {
     return UserItem(
-      id: json["id"],
-      avatar: json["avatar"],
-      totalAmount: double.parse(json["totalAmount"].toString()),
-      totalConsumptions: json["totalConsumptions"],
-    );
+        id: json["id"],
+        username: json["username"],
+        avatar: json["avatar"],
+        totalAmount: double.parse(json["totalAmount"].toString()),
+        totalConsumptions: json["totalConsumptions"],
+        consumptions: List<Consumption>.from(json["consumptions"]
+            .map((consumption) => Consumption.fromMap(consumption))));
   }
 
   Map<String, dynamic> toMap() => {
         "id": id,
+        "username": username,
         "avatar": avatar,
         "totalConsumptions": totalConsumptions,
         "totalAmount": totalAmount,
+        "consumptions":
+            consumptions.map((consumption) => consumption.toMap()).toList()
       };
 }

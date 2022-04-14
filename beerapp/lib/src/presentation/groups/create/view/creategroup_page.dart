@@ -1,11 +1,11 @@
 import 'package:beerapp/src/data/user/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
-import 'package:beerapp/src/presentation/groups/create/bloc/bloc/creategroup_bloc.dart';
 import 'package:beerapp/src/presentation/groups/create/view/creategroup_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../themes/themes.dart';
+import '../bloc/creategroup_bloc.dart';
 
 class CreateGroupPage extends StatelessWidget {
   const CreateGroupPage({Key? key}) : super(key: key);
@@ -13,6 +13,7 @@ class CreateGroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Crear nuevo grupo',
@@ -34,11 +35,14 @@ class CreateGroupPage extends StatelessWidget {
       ),
       body: RepositoryProvider(
         create: (context) => GroupRepository(),
-        child: BlocProvider<CreategroupBloc>(
-          create: (context) => CreategroupBloc(
+        child: BlocProvider<CreateGroupBloc>(
+          create: (context) => CreateGroupBloc(
               groupRepository: RepositoryProvider.of<GroupRepository>(context),
-              userRepository: RepositoryProvider.of<UserRepository>(context)),
-          child: CreateGroupBody(),
+              userRepository: RepositoryProvider.of<UserRepository>(context))
+            ..add(const CreateInitialGroupEvent()),
+          child: SingleChildScrollView(
+            child: CreateGroupBody(),
+          ),
         ),
       ),
     );

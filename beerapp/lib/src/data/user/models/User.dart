@@ -1,3 +1,4 @@
+import 'package:beerapp/src/data/user/models/Consumption.dart';
 import 'package:beerapp/src/data/user/models/Group.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,6 +9,7 @@ class User extends Equatable {
   final DateTime createdAt;
   final List<GroupItem> groups;
   final List<String> caseSearch;
+  final List<Consumption> consumptions;
 
   const User({
     required this.id,
@@ -16,18 +18,20 @@ class User extends Equatable {
     required this.createdAt,
     required this.groups,
     required this.caseSearch,
+    required this.consumptions,
   });
 
   factory User.fromMap(Map<String, dynamic> json) {
     return User(
-      id: json["id"],
-      username: json["username"],
-      avatar: json["avatar"],
-      createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
-      groups: List<GroupItem>.from(
-          json["groups"].map((group) => GroupItem.fromMap(group))),
-      caseSearch: List<String>.from(json["caseSearch"].map((value) => value)),
-    );
+        id: json["id"],
+        username: json["username"],
+        avatar: json["avatar"],
+        createdAt: DateTime.parse(json["createdAt"].toDate().toString()),
+        groups: List<GroupItem>.from(
+            json["groups"].map((group) => GroupItem.fromMap(group))),
+        caseSearch: List<String>.from(json["caseSearch"].map((value) => value)),
+        consumptions: List<Consumption>.from(json["consumptions"]
+            .map((consumption) => Consumption.fromMap(consumption))));
   }
 
   Map<String, dynamic> toMap() => {
@@ -37,16 +41,18 @@ class User extends Equatable {
         "createdAt": createdAt,
         "groups": groups.map((group) => group.toMap()).toList(),
         "caseSearch": caseSearch.map((e) => e).toList(),
+        "consumptions":
+            consumptions.map((consumption) => consumption.toMap()).toList(),
       };
 
-  User copyWith({
-    id,
-    username,
-    avatar,
-    createdAt,
-    groups,
-    caseSearch,
-  }) =>
+  User copyWith(
+          {id,
+          username,
+          avatar,
+          createdAt,
+          groups,
+          caseSearch,
+          consumptions}) =>
       User(
         id: id ?? this.id,
         username: username ?? this.username,
@@ -54,6 +60,7 @@ class User extends Equatable {
         createdAt: createdAt ?? this.createdAt,
         groups: groups ?? this.groups,
         caseSearch: caseSearch ?? this.caseSearch,
+        consumptions: consumptions ?? this.consumptions,
       );
 
   @override
@@ -63,7 +70,7 @@ class User extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, username, avatar, createdAt, groups, caseSearch];
+      [id, username, avatar, createdAt, groups, caseSearch, consumptions];
 }
 
 class GroupItem {

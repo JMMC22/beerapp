@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:beerapp/src/data/user/models/Consumption.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -12,8 +13,10 @@ abstract class IUserRepository {
   Future<void> registerUser(String username);
   Future<void> updateUser(User user);
   Future<User> getUserById(String id);
+  Future<List<User>> getUserByUsername(String username);
   Future<bool> isUsernameAvailable(String username);
   Future<void> addGroupToUsers(List<User> members, Group group);
+  Future<void> addConsumptionToUser(String id, Consumption consumption);
 }
 
 class UserRepository implements IUserRepository {
@@ -44,6 +47,7 @@ class UserRepository implements IUserRepository {
       createdAt: DateTime.now(),
       groups: [],
       caseSearch: setSearchParam(username),
+      consumptions: [],
     );
 
     await _userCollection
@@ -100,5 +104,35 @@ class UserRepository implements IUserRepository {
       caseSearchList.add(temp);
     }
     return caseSearchList;
+  }
+
+  @override
+  Future<List<User>> getUserByUsername(String username) async {
+    log('Get user by username');
+    List<User> users = [];
+    await _userCollection
+        .where('caseSearch', arrayContains: username)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        users.add(User.fromMap(element.data()));
+      }
+    }).catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
+    return users;
+  }
+
+  @override
+  Future<void> addConsumptionToUser(String id, Consumption consumption) async {
+    return await _userCollection.doc(id).update({
+      'consumptions': FieldValue.arrayUnion([consumption.toMap()])
+    }).catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
   }
 }

@@ -8,6 +8,8 @@ import 'package:beerapp/src/presentation/root_page.dart';
 import 'package:beerapp/src/presentation/stadistics/view/stadistics_page.dart';
 import 'package:flutter/material.dart';
 
+import '../data/user/models/User.dart';
+
 class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -25,7 +27,7 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const ProfilePage());
       case '/group':
         return MaterialPageRoute(
-            builder: (context) => const GroupDetailsPage());
+            builder: (context) => GroupDetailsPage(group: args as GroupItem));
       case '/loading':
         return MaterialPageRoute(builder: (context) => const LoadingScreen());
       case '/create-group':

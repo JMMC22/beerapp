@@ -16,8 +16,9 @@ class HomeLoading extends HomeState {
 
 class HomeSuccess extends HomeState {
   final User user;
+  final int totalConsumptionsToday;
 
-  const HomeSuccess(this.user);
+  const HomeSuccess(this.user, this.totalConsumptionsToday);
 
   @override
   List<Object> get props => [user];

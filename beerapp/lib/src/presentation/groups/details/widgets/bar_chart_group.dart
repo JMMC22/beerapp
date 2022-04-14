@@ -1,61 +1,86 @@
+import 'package:beerapp/src/data/user/models/Group.dart';
+import 'package:beerapp/src/presentation/groups/details/bloc/bloc/groupdetails_bloc.dart';
 import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BarChartGroup extends StatelessWidget {
   const BarChartGroup({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 50, right: 50),
-        child: Container(
-          height: 170,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => const SizedBox(width: 15),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return BarCharItem(index: index);
-            },
-          ),
-        ));
+    return BlocBuilder<GroupDetailsBloc, GroupDetailsState>(
+      builder: (context, state) {
+        if (state is GroupDetailsLoaded) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 50, right: 50),
+            child: Container(
+              height: 200,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) => const SizedBox(width: 10),
+                itemCount: state.group.members.length,
+                itemBuilder: (context, index) {
+                  return BarCharItem(user: state.group.members[index]);
+                },
+              ),
+            ),
+          );
+        }
+        return Container();
+      },
+    );
   }
 }
 
 class BarCharItem extends StatelessWidget {
-  final int index;
+  final UserItem user;
 
   const BarCharItem({
     Key? key,
-    required this.index,
+    required this.user,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          height: double.infinity,
-          width: 30,
-          decoration: BoxDecoration(
+    return Container(
+      width: 40,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 180,
+            width: 30,
+            decoration: BoxDecoration(
               color: AppCustomTheme.colors.lightGrey,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              )),
-        ),
-        Stack(
-          children: [
-            Container(
-              height: 50, // Value
-              width: 30,
-              decoration: BoxDecoration(color: AppCustomTheme.colors.beer),
             ),
-            const FoamBeer(),
-          ],
-        ),
-      ],
+          ),
+          Stack(
+            children: [
+              Container(
+                height: 100, // Value
+                width: 30,
+                decoration: BoxDecoration(color: AppCustomTheme.colors.beer),
+              ),
+              const FoamBeer()
+            ],
+          ),
+          Positioned(
+            top: 0,
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                border: Border.all(color: AppCustomTheme.colors.lightGrey),
+                borderRadius: BorderRadius.circular(20),
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/avatar.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -68,7 +93,9 @@ class FoamBeer extends StatelessWidget {
     return Container(
       width: 30,
       height: 10,
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: AppCustomTheme.colors.white,
+      ),
     );
   }
 }

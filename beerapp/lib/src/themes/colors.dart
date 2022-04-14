@@ -8,7 +8,7 @@ class AppColors {
 
   final backgroundGrey = const Color(0xffF6F5F5);
 
-  final blue = const Color(0xFF155094);
+  final blue = const Color(0xFF6FB2D2);
   final yellow = const Color(0xFFFFC800);
   final red = const Color(0xffFB7B7B);
 

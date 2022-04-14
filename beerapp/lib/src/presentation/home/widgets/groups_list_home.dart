@@ -1,5 +1,7 @@
+import 'package:beerapp/src/presentation/home/bloc/bloc/home_bloc.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -35,8 +37,10 @@ class GroupListHome extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/create-group'),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed('/create-group')
+                      .then((_) => BlocProvider.of<HomeBloc>(context)
+                          .add(const HomeLoad())),
                   iconSize: 25,
                   splashColor: Colors.transparent,
                   icon: const Icon(Icons.add_rounded),
@@ -81,7 +85,10 @@ class GroupItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting();
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed('/group'),
+      onTap: () => Navigator.of(context)
+          .pushNamed('/group', arguments: groups[index])
+          .then(
+              (_) => BlocProvider.of<HomeBloc>(context).add(const HomeLoad())),
       child: Container(
         height: 88,
         decoration: BoxDecoration(
@@ -104,7 +111,7 @@ class GroupItemList extends StatelessWidget {
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17),
+                  borderRadius: BorderRadius.circular(25),
                   color: AppCustomTheme.colors.grey,
                 ),
               ),

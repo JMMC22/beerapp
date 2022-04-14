@@ -5,8 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IGroupRepository {
   Future<void> createGroup(Group group);
-  Future<void> updateGroupr(Group group);
+  Future<void> updateGroup(Group group);
   Future<void> deleteGroup(String id);
+  Future<Group> getGroupById(String id);
+  Future<void> roundForAllMembers(Group group);
 }
 
 class GroupRepository extends IGroupRepository {
@@ -32,8 +34,34 @@ class GroupRepository extends IGroupRepository {
   }
 
   @override
-  Future<void> updateGroupr(Group group) {
+  Future<void> updateGroup(Group group) {
     // TODO: implement updateGroupr
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Group> getGroupById(String id) async {
+    log('Get group with id: $id');
+    return await _groupCollection
+        .doc(id)
+        .get()
+        .then((value) => Group.fromMap(value.data()!))
+        .catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
+  }
+
+  @override
+  Future<void> roundForAllMembers(Group group) async {
+    return await _groupCollection
+        .doc(group.id)
+        .update(group.toMap())
+        .catchError(
+      (error) {
+        log(error.toString());
+      },
+    );
   }
 }

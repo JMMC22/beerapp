@@ -1,8 +1,9 @@
 import 'package:beerapp/src/presentation/commons/commons_widgets.dart';
-import 'package:beerapp/src/presentation/groups/create/bloc/bloc/creategroup_bloc.dart';
+import 'package:beerapp/src/presentation/groups/create/bloc/creategroup_bloc.dart';
 import 'package:beerapp/src/presentation/groups/create/widgets/member_list_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 import '../../../../themes/themes.dart';
 
@@ -13,16 +14,13 @@ class CreateGroupBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String name = "";
-    return BlocListener<CreategroupBloc, CreategroupState>(
+    return BlocListener<CreateGroupBloc, CreateGroupState>(
       listener: (context, state) {
-        if (state is CreategroupSuccess) {
-          Navigator.pushReplacementNamed(context, '/');
-        } else if (state is CreategroupNameValidate) {
-          name = state.name;
+        if (state.status == FormzStatus.submissionSuccess) {
+          Navigator.pop(context);
         }
       },
-      child: BlocBuilder<CreategroupBloc, CreategroupState>(
+      child: BlocBuilder<CreateGroupBloc, CreateGroupState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(30.0),
@@ -30,19 +28,14 @@ class CreateGroupBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Visibility(
-                    visible: (state is CreategroupFailure) ? true : false,
+                    visible: state.status.isSubmissionFailure ? true : false,
                     child: const ErrorAlert()),
-                CustomTextField(
-                  tintText: 'Nombre grupo',
-                  validator: (value) => context
-                      .read<CreategroupBloc>()
-                      .add(GroupNameOnChanged(value)),
-                  errorText:
-                      (state is CreategroupNameUnvalidate) ? state.error : null,
-                ),
+                const GroupNameTextField(),
+                const SizedBox(height: 40),
+                const GroupPriceTextField(),
                 const SizedBox(height: 40),
                 Text(
-                  'Añadir miembros',
+                  'Añadir miembros (${state.members.length})',
                   style: TextStyle(
                     fontSize: 13,
                     fontFamily: 'Montserrat',
@@ -52,26 +45,82 @@ class CreateGroupBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 MemberListSearch(
-                  searchController: searchcontroller,
-                  searchListenerFuction: () {
-                    context
-                        .read<CreategroupBloc>()
-                        .add(MembersSearchOnChanged(searchcontroller.text));
-                  },
-                ),
+                    searchController: searchcontroller,
+                    searchListenerFuction: () {
+                      context
+                          .read<CreateGroupBloc>()
+                          .add(MembersSearchOnChanged(searchcontroller.text));
+                    },
+                    users: state.usersSearched),
                 const SizedBox(height: 40),
-                CustomButton(
-                    title: 'Crear',
-                    onPressed: (state is CreategroupNameValidate)
-                        ? () => context
-                            .read<CreategroupBloc>()
-                            .add(CreateGroupEvent(name, []))
-                        : null)
+                const SubmitButton(),
+                const SizedBox(height: 40),
               ],
             ),
           );
         },
       ),
     );
+  }
+}
+
+class GroupPriceTextField extends StatelessWidget {
+  const GroupPriceTextField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CreateGroupBloc, CreateGroupState>(
+      builder: (context, state) {
+        return CustomTextField(
+          tintText: 'Precio estándar',
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          validator: (value) =>
+              context.read<CreateGroupBloc>().add(GroupPriceOnChanged(value)),
+          errorText: state.price.invalid ? 'Precio inválido' : null,
+        );
+      },
+    );
+  }
+}
+
+class GroupNameTextField extends StatelessWidget {
+  const GroupNameTextField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CreateGroupBloc, CreateGroupState>(
+      builder: (context, state) {
+        return CustomTextField(
+          tintText: 'Nombre grupo',
+          keyboardType: TextInputType.text,
+          validator: (value) =>
+              context.read<CreateGroupBloc>().add(GroupNameOnChanged(value)),
+          errorText: state.name.invalid ? 'Nombre inválido' : null,
+        );
+      },
+    );
+  }
+}
+
+class SubmitButton extends StatelessWidget {
+  const SubmitButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CreateGroupBloc, CreateGroupState>(
+        builder: (context, state) {
+      return CustomButton(
+        title: 'Crear',
+        onPressed: state.status.isValidated
+            ? () => context
+                .read<CreateGroupBloc>()
+                .add(const SubmittedCreateGroupEvent())
+            : null,
+      );
+    });
   }
 }

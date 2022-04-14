@@ -1,87 +1,81 @@
+import 'package:beerapp/src/presentation/commons/commons_widgets.dart';
+import 'package:beerapp/src/presentation/groups/details/bloc/bloc/groupdetails_bloc.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../data/user/models/Group.dart';
 
 class MembersGroupList extends StatelessWidget {
   MembersGroupList({Key? key}) : super(key: key);
 
-  final List<String> testList = [
-    'test1',
-    'test2',
-    'test1',
-    'test2',
-    'test1',
-    'test2'
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
+    return BlocBuilder<GroupDetailsBloc, GroupDetailsState>(
+      builder: (context, state) {
+        if (state is GroupDetailsLoaded) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: Column(
               children: [
-                Text(
-                  'Miembros',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w700,
-                    color: AppCustomTheme.colors.black,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Miembros',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                          color: AppCustomTheme.colors.black,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        iconSize: 25,
+                        icon: const Icon(Icons.add_rounded),
+                      ),
+                    ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  iconSize: 25,
-                  icon: const Icon(Icons.add_rounded),
+                const SizedBox(height: 15),
+                ListView.separated(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemCount: state.group.members.length,
+                  itemBuilder: (context, index) {
+                    return GroupItemList(
+                      index: index,
+                      members: state.group.members,
+                    );
+                  },
+                  shrinkWrap: true,
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 15),
-          ListView.separated(
-            padding: const EdgeInsets.only(bottom: 25),
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: testList.length,
-            itemBuilder: (context, index) {
-              return GroupItemList(
-                index: index,
-              );
-            },
-            shrinkWrap: true,
-          )
-        ],
-      ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }
 
 class GroupItemList extends StatelessWidget {
   final int index;
+  final List<UserItem> members;
 
-  GroupItemList({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
-
-  final List<String> testList = [
-    'test1',
-    'test2',
-    'test1',
-    'test2',
-    'test1',
-    'test2'
-  ];
+  GroupItemList({Key? key, required this.index, required this.members})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: null, //() => Navigator.of(context).pushNamed('/group'),
       child: Container(
-        height: 88,
+        height: 60,
         decoration: BoxDecoration(
           color: AppCustomTheme.colors.white,
           borderRadius: BorderRadius.circular(17),
@@ -99,11 +93,14 @@ class GroupItemList extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17),
-                  color: AppCustomTheme.colors.grey,
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: AppCustomTheme.colors.lightGrey),
+                  image: const DecorationImage(
+                      image: AssetImage('assets/images/avatar.png'),
+                      fit: BoxFit.fill),
                 ),
               ),
               const SizedBox(width: 13),
@@ -112,7 +109,7 @@ class GroupItemList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    testList[index],
+                    members[index].username,
                     style: TextStyle(
                       fontSize: 18,
                       fontFamily: 'Montserrat',
@@ -124,7 +121,7 @@ class GroupItemList extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '0',
+                '${members[index].totalConsumptions}',
                 style: TextStyle(
                   fontSize: 24,
                   fontFamily: 'Montserrat',

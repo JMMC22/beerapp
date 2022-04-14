@@ -6,11 +6,13 @@ class CustomTextField extends StatefulWidget {
   final String tintText;
   final Function(String) validator;
   final String? errorText;
+  final TextInputType keyboardType;
 
   const CustomTextField({
     Key? key,
     required this.tintText,
     required this.validator,
+    required this.keyboardType,
     this.errorText,
   }) : super(key: key);
 
@@ -35,6 +37,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         const SizedBox(height: 5),
         TextField(
+          keyboardType: widget.keyboardType,
           cursorColor: AppCustomTheme.colors.grey,
           decoration: InputDecoration(
             fillColor: Colors.white,

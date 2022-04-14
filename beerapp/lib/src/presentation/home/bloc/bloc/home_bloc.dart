@@ -1,3 +1,4 @@
+import 'package:beerapp/src/data/user/models/Consumption.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:bloc/bloc.dart';
@@ -24,9 +25,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var id = await UserPreferences.getUserId();
       User user = await _userRepository.getUserById(id!);
       user.groups.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-      emit(HomeSuccess(user));
+      emit(HomeSuccess(user, _getTotalConsumptionsToday(user)));
     } catch (e) {
       emit(HomeFailure(e.toString()));
     }
+  }
+
+  int _getTotalConsumptionsToday(User user) {
+    return user.consumptions
+        .where((consumption) =>
+            DateTime(consumption.createdAt.year, consumption.createdAt.month,
+                consumption.createdAt.day) ==
+            DateTime(
+                DateTime.now().year, DateTime.now().month, DateTime.now().day))
+        .length;
   }
 }

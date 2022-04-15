@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/models/User.dart';
+import 'package:beerapp/src/data/user/models/user.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:bloc/bloc.dart';

@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:beerapp/src/data/user/models/Consumption.dart';
+import 'package:beerapp/src/data/consumption/models/consumption.dart';
+import 'package:beerapp/src/data/group/models/group.dart';
+import 'package:beerapp/src/data/user/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../preferences/user_preferences.dart';
-import '../models/Group.dart';
-import '../models/User.dart';
 
 abstract class IUserRepository {
   Future<void> registerUser(String username);

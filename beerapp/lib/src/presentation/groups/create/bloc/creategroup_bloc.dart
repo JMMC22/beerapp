@@ -1,11 +1,11 @@
-import 'package:beerapp/src/data/user/models/Group.dart';
-import 'package:beerapp/src/data/user/repository/group_repository.dart';
+import 'package:beerapp/src/data/group/models/group.dart';
+import 'package:beerapp/src/data/group/repository/group_repository.dart';
 import 'package:beerapp/src/presentation/groups/create/models/price.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:uuid/uuid.dart';
-import '../../../../data/user/models/User.dart';
+import '../../../../data/user/models/user.dart';
 import '../../../../data/user/repository/user_repository.dart';
 import '../../../../preferences/user_preferences.dart';
 import '../models/name.dart';

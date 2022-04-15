@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:beerapp/src/data/group/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/presentation/groups/details/bloc/bloc/groupdetails_bloc.dart';
 import 'package:beerapp/src/presentation/groups/details/view/group_details_body.dart';
@@ -5,9 +8,7 @@ import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data/user/models/Group.dart';
-import '../../../../data/user/models/User.dart';
-import '../../../../data/user/repository/group_repository.dart';
+import '../../../../data/user/models/user.dart';
 import '../../../commons/commons_widgets.dart';
 
 class GroupDetailsPage extends StatelessWidget {
@@ -51,55 +52,76 @@ class GroupDetailsPage extends StatelessWidget {
             ),
           ),
           body: const GroupDetailsBody(),
-          floatingActionButton: const FloatActionButtonRounds(),
+          floatingActionButton: FloatActionButtonRounds(),
         ),
       ),
     );
   }
 }
 
-class FloatActionButtonRounds extends StatelessWidget {
-  const FloatActionButtonRounds({
+class FloatActionButtonRounds extends StatefulWidget {
+  FloatActionButtonRounds({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<FloatActionButtonRounds> createState() =>
+      _FloatActionButtonRoundsState();
+}
+
+class _FloatActionButtonRoundsState extends State<FloatActionButtonRounds> {
+  @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: AppCustomTheme.colors.lightGrey,
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Image(
-          image: AssetImage('assets/icons/beer_plus_white.png'),
-        ),
-      ),
-      onPressed: () {
-        showModalBottomSheet(
-          backgroundColor: AppCustomTheme.colors.backgroundGrey,
-          context: context,
-          builder: (_) {
-            return Padding(
-              padding: const EdgeInsets.only(
-                  left: 30, top: 25, right: 15, bottom: 50),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomButton(
-                      title: 'Añadir ronda para todos',
-                      onPressed: () {
-                        BlocProvider.of<GroupDetailsBloc>(context)
-                            .add(const GroupDetailsRoundForAll());
-                        Navigator.pop(context);
-                      }),
-                  const Divider(height: 10),
-                  const CustomButton(
-                      title: 'Seleccionar a quién añadir ronda',
-                      onPressed: null),
-                  const Divider(height: 10),
-                  const CustomButton(
-                      title: 'Cambiar precio estándar', onPressed: null),
-                ],
-              ),
+    return BlocBuilder<GroupDetailsBloc, GroupDetailsState>(
+      builder: (context, state) {
+        return FloatingActionButton(
+          backgroundColor: AppCustomTheme.colors.lightGrey,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Image(
+              image: AssetImage('assets/icons/beer_plus_white.png'),
+            ),
+          ),
+          onPressed: () {
+            showModalBottomSheet(
+              backgroundColor: AppCustomTheme.colors.backgroundGrey,
+              context: context,
+              builder: (_) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      left: 30, top: 25, right: 15, bottom: 50),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomButton(
+                          title: 'Añadir ronda para todos',
+                          onPressed: () {
+                            BlocProvider.of<GroupDetailsBloc>(context)
+                                .add(const GroupDetailsRoundForAll());
+                            Navigator.pop(context);
+                          }),
+                      const Divider(height: 10),
+                      CustomButton(
+                        title: 'Seleccionar a quién añadir ronda',
+                        onPressed: () => Navigator.of(context)
+                            .popAndPushNamed('/add-specific-round',
+                                arguments: state is GroupDetailsLoaded
+                                    ? state.group
+                                    : [])
+                            .then((value) =>
+                                BlocProvider.of<GroupDetailsBloc>(context).add(
+                                    GroupDetailsInitialLoad(
+                                        (state is GroupDetailsLoaded)
+                                            ? state.group.id
+                                            : '0'))),
+                      ),
+                      const Divider(height: 10),
+                      CustomButton(
+                          title: 'Cambiar precio estándar', onPressed: null),
+                    ],
+                  ),
+                );
+              },
             );
           },
         );

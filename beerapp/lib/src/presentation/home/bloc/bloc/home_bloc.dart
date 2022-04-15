@@ -1,12 +1,11 @@
-import 'package:beerapp/src/data/user/models/Consumption.dart';
-import 'package:beerapp/src/data/user/repository/group_repository.dart';
+import 'package:beerapp/src/data/consumption/models/consumption.dart';
+import 'package:beerapp/src/data/group/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/preferences/user_preferences.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../data/user/models/Group.dart';
-import '../../../../data/user/models/User.dart';
+import '../../../../data/user/models/user.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

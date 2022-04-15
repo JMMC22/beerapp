@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/models/Consumption.dart';
+import 'package:beerapp/src/data/consumption/models/consumption.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {

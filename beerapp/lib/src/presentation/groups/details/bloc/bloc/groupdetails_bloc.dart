@@ -1,10 +1,10 @@
-import 'package:beerapp/src/data/user/models/Consumption.dart';
+import 'package:beerapp/src/data/group/models/group.dart';
+import 'package:beerapp/src/data/group/repository/group_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../../data/user/models/Group.dart';
-import '../../../../../data/user/repository/group_repository.dart';
+import '../../../../../data/consumption/models/consumption.dart';
 import '../../../../../data/user/repository/user_repository.dart';
 
 part 'groupdetails_event.dart';

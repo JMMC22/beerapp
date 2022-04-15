@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/repository/group_repository.dart';
+import 'package:beerapp/src/data/group/repository/group_repository.dart';
 import 'package:beerapp/src/data/user/repository/user_repository.dart';
 import 'package:beerapp/src/presentation/home/bloc/bloc/home_bloc.dart';
 import 'package:beerapp/src/presentation/home/view/home_body.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-import '../../../data/user/models/User.dart';
+import '../../../data/user/models/user.dart';
 
 class GroupListHome extends StatefulWidget {
   final List<GroupItem> groups;
@@ -225,7 +225,7 @@ class GroupItemList extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '${groups[index].totalAmount} €',
+                '${groups[index].totalAmount.toStringAsFixed(2)} €',
                 style: TextStyle(
                   fontSize: 24,
                   fontFamily: 'Montserrat',

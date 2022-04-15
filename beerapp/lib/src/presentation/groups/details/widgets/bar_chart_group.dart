@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/models/Group.dart';
+import 'package:beerapp/src/data/group/models/group.dart';
 import 'package:beerapp/src/presentation/groups/details/bloc/bloc/groupdetails_bloc.dart';
 import 'package:beerapp/src/themes/themes.dart';
 import 'package:flutter/material.dart';

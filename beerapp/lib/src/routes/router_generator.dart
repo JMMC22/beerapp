@@ -1,3 +1,4 @@
+import 'package:beerapp/src/data/group/models/group.dart';
 import 'package:beerapp/src/presentation/commons/loading.dart';
 import 'package:beerapp/src/presentation/groups/create/view/creategroup_page.dart';
 import 'package:beerapp/src/presentation/groups/details/view/group_details_page.dart';
@@ -8,7 +9,8 @@ import 'package:beerapp/src/presentation/root_page.dart';
 import 'package:beerapp/src/presentation/stadistics/view/stadistics_page.dart';
 import 'package:flutter/material.dart';
 
-import '../data/user/models/User.dart';
+import '../data/user/models/user.dart';
+import '../presentation/groups/rounds/addSpecific/view/add_specific_page.dart';
 
 class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -32,6 +34,9 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const LoadingScreen());
       case '/create-group':
         return MaterialPageRoute(builder: (context) => const CreateGroupPage());
+      case '/add-specific-round':
+        return MaterialPageRoute(
+            builder: (context) => AddSpecificRoundPage(group: args as Group));
       default:
         return _errorRoute();
     }

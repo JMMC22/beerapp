@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/models/User.dart';
+import 'package:beerapp/src/data/user/models/user.dart';
 import 'package:beerapp/src/presentation/commons/commons_widgets.dart';
 import 'package:beerapp/src/presentation/groups/create/bloc/creategroup_bloc.dart';
 import 'package:beerapp/src/presentation/groups/create/view/creategroup_body.dart';

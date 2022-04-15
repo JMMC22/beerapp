@@ -1,10 +1,9 @@
+import 'package:beerapp/src/data/group/models/group.dart';
 import 'package:beerapp/src/presentation/commons/commons_widgets.dart';
 import 'package:beerapp/src/presentation/groups/details/bloc/bloc/groupdetails_bloc.dart';
 import 'package:beerapp/src/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../data/user/models/Group.dart';
 
 class MembersGroupList extends StatelessWidget {
   MembersGroupList({Key? key}) : super(key: key);

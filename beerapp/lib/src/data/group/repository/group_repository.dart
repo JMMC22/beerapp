@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:beerapp/src/data/user/models/Group.dart';
+import 'package:beerapp/src/data/group/models/group.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class IGroupRepository {

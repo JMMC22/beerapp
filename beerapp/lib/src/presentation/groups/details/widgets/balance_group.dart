@@ -48,7 +48,7 @@ class BalanceGroup extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.only(left: 10, bottom: 15),
                         child: Text(
                           'uds',
                           style: TextStyle(
@@ -62,7 +62,7 @@ class BalanceGroup extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'Precio estándar: ${state.group.standardPrice ?? 0.0} €',
+                    'Precio estándar: ${state.group.standardPrice} €',
                     style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'Montserrat',

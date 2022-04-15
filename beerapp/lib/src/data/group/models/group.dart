@@ -1,4 +1,4 @@
-import 'package:beerapp/src/data/user/models/Consumption.dart';
+import 'package:beerapp/src/data/consumption/models/consumption.dart';
 import 'package:equatable/equatable.dart';
 
 class Group extends Equatable {
@@ -121,4 +121,9 @@ class UserItem {
         "consumptions":
             consumptions.map((consumption) => consumption.toMap()).toList()
       };
+
+  @override
+  String toString() {
+    return "UserItem with id: $id, username: $username";
+  }
 }
